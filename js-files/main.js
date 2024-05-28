@@ -69,6 +69,9 @@ mobilePlanetsLi.forEach((li, index) => {
     mobileCatogries.forEach((catogery) => {
       catogery.classList.remove("active");
     });
+     mobilePlanetsLi.forEach((li) => {
+      li.style.transform = "translateX(100%)";
+    } 
     mobileCatogries[0].classList.add("active");
     document.body.className = li.querySelector("h2").textContent.toLowerCase();
   });
