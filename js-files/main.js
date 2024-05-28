@@ -70,7 +70,7 @@ mobilePlanetsLi.forEach((li, index) => {
       catogery.classList.remove("active");
     });
     mobileCatogries[0].classList.add("active");
-    document.body.className = li.querySelector("h2").textContent;
+    document.body.className = li.querySelector("h2").textContent.toLowerCase();
   });
 });
 
