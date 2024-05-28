@@ -59,9 +59,9 @@ mobilePlanetsLi.forEach((li, index) => {
       nav.classList.toggle("margin");
     }
     planetsLi.forEach((li) => {
-        li.classList.remove("active");
-      });
-    planetsLi[index].classList.add("active")
+      li.classList.remove("active");
+    });
+    planetsLi[index].classList.add("active");
     mobilePlanetsLi.forEach((li) => {
       li.classList.remove("active");
     });
@@ -69,9 +69,9 @@ mobilePlanetsLi.forEach((li, index) => {
     mobileCatogries.forEach((catogery) => {
       catogery.classList.remove("active");
     });
-     mobilePlanetsLi.forEach((li) => {
+    mobilePlanetsLi.forEach((li) => {
       li.style.transform = "translateX(100%)";
-    })
+    });
     mobileCatogries[0].classList.add("active");
     document.body.className = li.querySelector("h2").textContent.toLowerCase();
   });
