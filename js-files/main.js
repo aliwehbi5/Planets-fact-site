@@ -51,13 +51,17 @@ toggleIcon.addEventListener("click", () => {
   nav.classList.toggle("margin");
 });
 
-mobilePlanetsLi.forEach((li) => {
+mobilePlanetsLi.forEach((li, index) => {
   li.addEventListener("click", () => {
     if (!isAnimating) {
       mobilePlanets.classList.toggle("d-none");
       fetchPlanet(li.querySelector("h2").textContent);
       nav.classList.toggle("margin");
     }
+    planetsLi.forEach((li) => {
+        li.classList.remove("active");
+      });
+    planetsLi[index].classList.add("active")
     mobilePlanetsLi.forEach((li) => {
       li.classList.remove("active");
     });
@@ -130,27 +134,6 @@ function fetchPlanet(value) {
               data[value][btn.dataset.catogry]["description"];
           }
         });
-        // const scaleFactor = 0.5;
-        // planetImage.style.transition = "transform 0.5s";
-        // planetImage.style.transform = `translate(-100vw, -100vh) scale(${scaleFactor})`;
-        // setTimeout(() => {
-        //   planetImage.style.transition = "transform 0.5s";
-        //   planetImage.style.transform = `translate(-100vw, -100vh) scale(0)`;
-
-        //   setTimeout(() => {
-        //     planetImage.style.transition = "transform 0.5s";
-        //     planetImage.style.transform = `translate(100vw, 100vh) scale(${scaleFactor})`;
-
-        //     setTimeout(() => {
-        //       planetImage.style.transition = "transform 0.5s";
-        //       planetImage.style.transform = `translate(0, 0) scale(1)`;
-
-        //       setTimeout(() => {
-        //         planetImage.style.transition = "";
-        //       }, 500);
-        //     }, 500);
-        //   }, 500);
-        // }, 1000);
         planetImage.style.transition = "transform 0.3s";
         planetImage.style.transform = `translate(20vh, -20vh) scale(0)`;
         setTimeout(() => {
@@ -272,14 +255,3 @@ function changeImg(name, catogery) {
       console.error("Error:", error);
     });
 }
-
-// let interval = setInterval(() => {
-//   const translateX = Math.random() * 100; // Random translateX value
-//   const translateY = Math.random() * 100; // Random translateY value
-//   const scale = Math.random() * 0.5 + 0.5; // Random scale value between 0.5 and 1
-
-//   planetImage.style.transition = "transform 0.5s"; // Apply transition effect
-//   planetImage.style.transform = `translateX(${translateX}px) translateY(${translateY}px) scale(${scale})`;
-
-//   counter++;
-// }, 1000);
