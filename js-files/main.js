@@ -30,8 +30,8 @@ planetsLi.forEach((li, index) => {
         btn.classList.remove("active");
       });
       btns[0].classList.add("active");
-      fetchPlanet(li.textContent);
-      document.body.className = li.textContent.toLowerCase();
+      fetchPlanet(li.dataset.planet);
+      document.body.className = li.dataset.planet;
     }
   });
 });
@@ -47,21 +47,16 @@ toggleIcon.addEventListener("click", () => {
       }, index * 30);
     }
   });
-
   nav.classList.toggle("margin");
 });
 
-mobilePlanetsLi.forEach((li, index) => {
+mobilePlanetsLi.forEach((li) => {
   li.addEventListener("click", () => {
     if (!isAnimating) {
-      mobilePlanets.classList.toggle("d-none");
-      fetchPlanet(li.querySelector("h2").textContent);
-      nav.classList.toggle("margin");
+      mobilePlanets.classList.add("d-none");
+      fetchPlanet(li.dataset.planet);
+      nav.classList.remove("margin");
     }
-    planetsLi.forEach((li) => {
-      li.classList.remove("active");
-    });
-    planetsLi[index].classList.add("active");
     mobilePlanetsLi.forEach((li) => {
       li.classList.remove("active");
     });
@@ -69,11 +64,7 @@ mobilePlanetsLi.forEach((li, index) => {
     mobileCatogries.forEach((catogery) => {
       catogery.classList.remove("active");
     });
-    mobilePlanetsLi.forEach((li) => {
-      li.style.transform = "translateX(100%)";
-    });
     mobileCatogries[0].classList.add("active");
-    document.body.className = li.querySelector("h2").textContent.toLowerCase();
   });
 });
 
@@ -90,7 +81,7 @@ btns.forEach((btn, index) => {
     let name;
     planetsLi.forEach((li) => {
       if (li.classList.contains("active")) {
-        name = li.textContent;
+        name = li.dataset.planet;
       }
     });
     changeImg(name, btn.dataset.catogry);
@@ -111,7 +102,7 @@ mobileCatogries.forEach((catogery, index) => {
     let name;
     mobilePlanetsLi.forEach((li) => {
       if (li.classList.contains("active")) {
-        name = li.querySelector("h2").textContent;
+        name = li.dataset.planet;
       }
     });
     changeImg(name, catogery.dataset.catogry);
@@ -219,7 +210,7 @@ function animatePlanetName(newName) {
   });
 }
 
-function changeImg(name, catogery) {
+function changeImg(name, category) {
   fetch("./data.json")
     .then((response) => {
       if (!response.ok) {
@@ -229,33 +220,22 @@ function changeImg(name, catogery) {
     })
     .then((data) => {
       alternativeImg.src = "";
-      if (catogery == "structure") {
-        planetImage.style.transition = "transform .3s";
-        planetImage.style.transform = "scale(0)";
-        setTimeout(() => {
-          planetImage.style.transform = "scale(1)";
+      planetImage.style.transition = "transform .3s";
+      planetImage.style.transform = "scale(0)";
+      setTimeout(() => {
+        planetImage.style.transform = "scale(1)";
+        if (category === "structure") {
           planetImage.src = data[name]["img"].replace(".svg", "-internal.svg");
-        }, 400);
-      } else if (catogery == "overview") {
-        planetImage.style.transition = "transform .3s";
-        planetImage.style.transform = "scale(0)";
-        setTimeout(() => {
-          planetImage.style.transform = "scale(1)";
+        } else {
           planetImage.src = data[name]["img"];
-        }, 400);
-      } else {
-        planetImage.style.transition = "transform .3s";
-        planetImage.style.transform = "scale(0)";
-        setTimeout(() => {
-          planetImage.style.transform = "scale(1)";
-          planetImage.src = data[name]["img"];
-        }, 400);
-        setTimeout(() => {
-          alternativeImg.src = `imgs/${name.toLowerCase()}-geology.png`;
-        }, 500);
-      }
+          if (category !== "overview") {
+            alternativeImg.src = `imgs/${name}-geology.png`;
+          }
+        }
+      }, 400);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
+
