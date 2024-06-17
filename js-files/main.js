@@ -69,8 +69,6 @@ mobilePlanetsLi.forEach((li) => {
             li.style.transform = "translateX(0)";
           }, index * 30);
         }
-        fetchPlanet(li.dataset.planet);
-        nav.classList.remove("margin");
       });
       fetchPlanet(li.dataset.planet);
       nav.classList.remove("margin");
