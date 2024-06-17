@@ -53,7 +53,15 @@ toggleIcon.addEventListener("click", () => {
 mobilePlanetsLi.forEach((li) => {
   li.addEventListener("click", () => {
     if (!isAnimating) {
-      mobilePlanets.classList.add("d-none");
+      mobilePlanets.classList.toggle("d-none");
+  mobilePlanetsLi.forEach((li, index) => {
+    if (mobilePlanets.classList.contains("d-none")) {
+      li.style.transform = "translateX(100%)";
+    } else {
+      setTimeout(() => {
+        li.style.transform = "translateX(0)";
+      }, index * 30);
+    }
       fetchPlanet(li.dataset.planet);
       nav.classList.remove("margin");
     }
