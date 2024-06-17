@@ -269,14 +269,3 @@ function changeImg(name, category) {
       console.error("Error:", error);
     });
 }
-
-let interval = setInterval(() => {
-  const translateX = Math.random() * 100; // Random translateX value
-  const translateY = Math.random() * 100; // Random translateY value
-  const scale = Math.random() * 0.5 + 0.5; // Random scale value between 0.5 and 1
-
-  planetImage.style.transition = "transform 0.5s"; // Apply transition effect
-  planetImage.style.transform = `translateX(${translateX}px) translateY(${translateY}px) scale(${scale})`;
-
-  counter++;
-}, 1000);
