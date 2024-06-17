@@ -1,21 +1,24 @@
-const planetsLi = document.querySelectorAll("ul.planets li");
-const nav = document.querySelector("nav");
-const mobilePlanets = document.querySelector("ul.mobile-planets");
-const mobilePlanetsLi = document.querySelectorAll("ul.mobile-planets li");
-const toggleIcon = document.querySelector("i.toggle");
-const btns = document.querySelectorAll(".catogries button");
-const mobileCatogries = document.querySelectorAll(".mobile-catogries li");
-const planetName = document.querySelector("h1.planet-name");
-const planetImage = document.querySelector("img.planet-img");
-const alternativeImg = document.querySelector("img.alternative-img");
-const planetDescription = document.querySelector("p.planet-description");
-const rotationTime = document.querySelector("h1.rotation-time");
-const revolutionTime = document.querySelector("h1.revolution-time");
-const radius = document.querySelector("h1.radius");
-const temp = document.querySelector("h1.temp");
-let isAnimating = false;
+// Selecting DOM elements
+const planetsLi = document.querySelectorAll("ul.planets li"); // List items for planets
+const nav = document.querySelector("nav"); // Navigation element
+const mobilePlanets = document.querySelector("ul.mobile-planets"); // Mobile planets list
+const mobilePlanetsLi = document.querySelectorAll("ul.mobile-planets li"); // Mobile planets list items
+const toggleIcon = document.querySelector("i.toggle"); // Toggle icon
+const btns = document.querySelectorAll(".catogries button"); // Buttons for categories
+const mobileCatogries = document.querySelectorAll(".mobile-catogries li"); // Mobile category list items
+const planetName = document.querySelector("h1.planet-name"); // Planet name heading
+const planetImage = document.querySelector("img.planet-img"); // Planet image
+const alternativeImg = document.querySelector("img.alternative-img"); // Alternative image
+const planetDescription = document.querySelector("p.planet-description"); // Planet description paragraph
+const rotationTime = document.querySelector("h1.rotation-time"); // Rotation time heading
+const revolutionTime = document.querySelector("h1.revolution-time"); // Revolution time heading
+const radius = document.querySelector("h1.radius"); // Radius heading
+const temp = document.querySelector("h1.temp"); // Temperature heading
+let isAnimating = false; // Animation flag
 
+// Adding click event listeners to planet list items
 planetsLi.forEach((li, index) => {
+  // Perform actions when a planet is clicked
   li.addEventListener("click", () => {
     if (!isAnimating) {
       planetsLi.forEach((li) => {
@@ -36,7 +39,9 @@ planetsLi.forEach((li, index) => {
   });
 });
 
+// Adding click event listener to toggle icon
 toggleIcon.addEventListener("click", () => {
+  // Toggle visibility of mobile planets and apply animations
   mobilePlanets.classList.toggle("d-none");
   mobilePlanetsLi.forEach((li, index) => {
     if (mobilePlanets.classList.contains("d-none")) {
@@ -50,18 +55,23 @@ toggleIcon.addEventListener("click", () => {
   nav.classList.toggle("margin");
 });
 
+// Adding click event listeners to mobile planet list items
 mobilePlanetsLi.forEach((li) => {
+  // Perform actions when a mobile planet is clicked
   li.addEventListener("click", () => {
     if (!isAnimating) {
       mobilePlanets.classList.toggle("d-none");
-  mobilePlanetsLi.forEach((li, index) => {
-    if (mobilePlanets.classList.contains("d-none")) {
-      li.style.transform = "translateX(100%)";
-    } else {
-      setTimeout(() => {
-        li.style.transform = "translateX(0)";
-      }, index * 30);
-    }
+      mobilePlanetsLi.forEach((li, index) => {
+        if (mobilePlanets.classList.contains("d-none")) {
+          li.style.transform = "translateX(100%)";
+        } else {
+          setTimeout(() => {
+            li.style.transform = "translateX(0)";
+          }, index * 30);
+        }
+        fetchPlanet(li.dataset.planet);
+        nav.classList.remove("margin");
+      });
       fetchPlanet(li.dataset.planet);
       nav.classList.remove("margin");
     }
@@ -76,7 +86,9 @@ mobilePlanetsLi.forEach((li) => {
   });
 });
 
+// Adding click event listeners to category buttons
 btns.forEach((btn, index) => {
+  // Perform actions when a category button is clicked
   btn.addEventListener("click", () => {
     btns.forEach((btn) => {
       btn.classList.remove("active");
@@ -97,7 +109,9 @@ btns.forEach((btn, index) => {
   });
 });
 
+// Adding click event listeners to mobile category list items
 mobileCatogries.forEach((catogery, index) => {
+  // Perform actions when a mobile category is clicked
   catogery.addEventListener("click", () => {
     mobileCatogries.forEach((catogery) => {
       catogery.classList.remove("active");
@@ -118,7 +132,9 @@ mobileCatogries.forEach((catogery, index) => {
   });
 });
 
+// Function to fetch planet data
 function fetchPlanet(value) {
+  // Fetch planet data based on the provided value
   alternativeImg.src = "";
   fetch("./data.json")
     .then((response) => {
@@ -160,7 +176,9 @@ function fetchPlanet(value) {
     });
 }
 
+// Function to fetch planet description
 function fetchDesc(name, catogery) {
+  // Fetch planet description based on the provided name and category
   fetch("./data.json")
     .then((response) => {
       if (!response.ok) {
@@ -176,7 +194,9 @@ function fetchDesc(name, catogery) {
     });
 }
 
+// Function to animate planet name
 function animatePlanetName(newName) {
+  // Animate the planet name with a typewriter-like effect
   const existingName = planetName.textContent;
   const totalCharacters = existingName.length;
   const totalNewCharacters = newName.length;
@@ -218,7 +238,10 @@ function animatePlanetName(newName) {
   });
 }
 
+// Function to change planet image
 function changeImg(name, category) {
+  // Change the planet image based on the provided name and category
+
   fetch("./data.json")
     .then((response) => {
       if (!response.ok) {
@@ -247,3 +270,13 @@ function changeImg(name, category) {
     });
 }
 
+let interval = setInterval(() => {
+  const translateX = Math.random() * 100; // Random translateX value
+  const translateY = Math.random() * 100; // Random translateY value
+  const scale = Math.random() * 0.5 + 0.5; // Random scale value between 0.5 and 1
+
+  planetImage.style.transition = "transform 0.5s"; // Apply transition effect
+  planetImage.style.transform = `translateX(${translateX}px) translateY(${translateY}px) scale(${scale})`;
+
+  counter++;
+}, 1000);
